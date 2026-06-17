@@ -88,4 +88,28 @@ async function logoutUser(req, res) {
     res.status(200).json({ message: "User logged out successfully!" })
 }
 
-module.exports = { registerUser, loginUser, logoutUser }
+async function getCurrentUser(req, res) {
+    const token = req.cookies.token; // get token from user browser if present
+
+    if (!token) {
+        console.log("No token passed from backend to frontend");
+        return res.status(200).json({ user: null });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log("Frontend successfully conveyed current logged in user status.");
+
+        const user = await userModel.findById(decoded.id).select('userName email role').lean();
+        if (!user) {
+            return res.status(200).json({ user: null });
+        }
+
+        return res.status(200).json({ user });
+    } catch (err) {
+        console.log(err);
+        return res.status(200).json({ user: null });
+    }
+}
+
+module.exports = { registerUser, loginUser, logoutUser, getCurrentUser }

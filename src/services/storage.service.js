@@ -5,9 +5,11 @@ const ImageKitClient = new ImageKit({
 })
 
 async function uploadFile(file) {
+    const fileName = `music_${Date.now()}.mp3`;
+
     const result = await ImageKitClient.files.upload({
-        file, 
-        fileName: "music_" + Date.now(),
+        file,
+        fileName,
         folder: "yt-complete-backend/music"
     })
     return result;

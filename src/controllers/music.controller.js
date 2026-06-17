@@ -54,9 +54,8 @@ async function createAlbum(req, res) {
 async function getAllMusics(req, res) {
 
     const musics = await musicModel
-    .find()
-    .skip(1) // will skip the n first musics
-    .limit(2) // at a time only fetch 2 musics
+    .find() // .skip(1) will skip the n first musics
+    .limit(10) // at a time only fetch 2 musics
     .populate("artist", "userName email")
     // retrieved all entries/rows from musicModel which has musics
     // if we do .find().populate("artist") then based on artist var which holds Obj. id (PK), it will display all info of artist as well that is stored in user collection
@@ -83,14 +82,20 @@ async function getAllAlbums(req, res) {
 
 async function getAlbumById(req, res) {
 
-    const albumId = req.params.albumId;
+  const albumId = req.params.albumId;
 
-    const album = await albumModel.findById(albumId).populate("artist", "userName email").populate("musics")
+  const album = await albumModel
+    .findById(albumId)
+    .populate("artist", "userName email")
+    .populate({
+      path: 'musics',
+      populate: { path: 'artist', select: 'userName email' }
+    });
 
-    res.status(200).json({
-        message: "Album Fetched Successfully!",
-        albums: album,
-    })
+  res.status(200).json({
+    message: "Album Fetched Successfully!",
+    album: album,
+  })
 }
 
 module.exports = { createMusic, createAlbum, getAllMusics, getAllAlbums, getAlbumById };

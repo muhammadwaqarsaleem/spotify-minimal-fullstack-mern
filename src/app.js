@@ -2,8 +2,12 @@ const express = require('express'); // To use express package to program server
 const cookieParser = require('cookie-parser'); // To use middleware to access cookies from user`s web browser
 const authRoutes = require('./routes/auth.routes');
 const musicRoutes = require('./routes/music.routes');
+const cors = require('cors'); // to use cors middleware package that allows frontend and backend to communicate 
 
 const app = express(); // store an instance of the server in app var.
+app.use(cors({ origin: 'http://localhost:5173', credentials: true })); // use cors middleware 
+// origin: so that only our frontend communicates with the backend server instead of all random webservers
+// credentials: true makes: This tells Express to allow cookies, authorization headers, and other credentials to be sent across origins.
 
 // Middleware: that allow our server to properly accept/send data from/to frontend
 app.use(express.json()); // For raw format json data
