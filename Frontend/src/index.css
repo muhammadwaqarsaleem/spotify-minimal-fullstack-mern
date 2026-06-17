@@ -1,0 +1,109 @@
+/*
+  Global Spotify-inspired dark theme and base styling.
+  This file defines the overall palette, typography, and page reset.
+*/
+
+:root {
+  --bg: #0d1117; /* Very dark page background */
+  --surface: #12181f; /* Card and panel surface color */
+  --surface-soft: #161f28; /* Slightly lighter surface for secondary panels */
+  --border: rgba(255, 255, 255, 0.08); /* Soft border lines */
+  --text: #c7d1dd; /* Primary body text */
+  --text-h: #ffffff; /* Heading text */
+  --muted: #8b99ad; /* Secondary text and hints */
+  --accent: #1db954; /* Spotify green accent */
+  --accent-strong: #1ed760; /* Brighter green for hover states */
+  --accent-soft: rgba(29, 185, 84, 0.16); /* Accent background glow */
+  --shadow: rgba(0, 0, 0, 0.45) 0 24px 64px -32px; /* Deep shadow for surfaces */
+
+  --sans: 'Inter', system-ui, sans-serif;
+  --heading: 'Inter', system-ui, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, monospace;
+
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Global reset and typography base. */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+#root {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: var(--heading);
+  color: var(--text-h);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+p {
+  margin: 0;
+}
+
+code {
+  font-family: var(--mono);
+  background: rgba(255, 255, 255, 0.07);
+  color: #e6edf9;
+  padding: 0.25rem 0.45rem;
+  border-radius: 0.65rem;
+  font-size: 0.95rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 700px) {
+  :root {
+    font-size: 14px;
+  }
+}
